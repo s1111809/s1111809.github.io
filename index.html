@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="description" content="Demonstrator project prototype" />
+  <meta charset="utf-8">
+  <title>Demonstrator project prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Demonstrator project 3">
+
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/js/deprecated/Geometry.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/donmccurdy/aframe-physics-system@v2.1.0/dist/aframe-physics-system.min.js"></script>
+  <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <script>
+    // onderstaande code wordt opgeroepen als er op een object met de code (?) 'cursor-listener' wordt geklikt. 
+    //Het print 'Hi' naar de console met f5. Ook laadt het de wereld in dat af te lezen is van het id van het geklikte object.
+
+    //dit was een test voor de joysticks die ik nog niet heb :)
+    AFRAME.registerComponent('thumbstick-logging', {
+        init: function () {
+            this.el.addEventListener('thumbstickmoved', this.logThumbstick);
+        },
+        logThumbstick: function (evt) {
+            if (evt.detail.y > 0.95) { console.log("DOWN"); }
+            if (evt.detail.y < -0.95) { console.log("UP"); }
+            if (evt.detail.x < -0.95) { console.log("LEFT"); }
+            if (evt.detail.x > 0.95) { console.log("RIGHT"); }
+        }
+    });
+  </script>
+  <!-- helloo
+   -->
+
+  <!-- Create a scene with physics debug -->
+  <a-scene physics="debug: true" id="scene">
+    <!-- onderstaande code geeft een cursor op het beeld. Met je linkermuis klik je op de gele cylinder  -->
+    <a-entity camera look-controls wasd-controls="acceleration:100" position="0 1.6 0">
+      <a-entity cursor="fuse: false; fuseTimeout: 500" position="0 0 -1"
+        geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
+      </a-entity>
+    </a-entity>
+    <a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>
+
+
+    <!-- ! Adding controllers
+    <a-entity id="leftController" static-body="shape: sphere; sphereRadius: 0.02;" oculus-touch-controls="hand: left"
+      sphere-collider="objects: .throwable" grab></a-entity>
+    <a-entity id="rightController" static-body="shape: sphere; sphereRadius: 0.02;" oculus-touch-controls="hand: right"
+      sphere-collider="objects: .throwable" grab></a-entity> -->
+
+
+
+
+  </a-scene>
+
+</body>
+
+</html>
